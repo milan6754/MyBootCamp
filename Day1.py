@@ -1,4 +1,4 @@
-'''#This is my first programming 
+#This is my first programming 
 print("Hi, This is my first code,")
 print("Today is day 1 of learning of python")
 
@@ -107,7 +107,7 @@ result = math.sqrt(x)
 result1 = math.ceil(x)
 result2= math.floor(x)
 
-print(result2)'''
+print(result2)
 
 import math 
 
