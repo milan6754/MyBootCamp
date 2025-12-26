@@ -206,6 +206,7 @@ for key, value  in menu.items():
 
 print("----------------------------")
 
+
 while True:
     food= input("Enter the food you like to buy(q for quit): ").lower()
     if food =="q":
