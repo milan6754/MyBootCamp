@@ -121,11 +121,13 @@ for name in names:
 
 #-----------------------------------
 
-whats = {"name":"Milan",
+'''whats = {"name":"Milan",
         "age":12,
         "address":"Nepal"}
-for key,value in whats.items():
-    print(f"{key}:{value}")
+for key,value in whats.items(): # to get key use keys() , to get value use values() to get both use items()
+    print(f"{key}:{value}")'''
+
+
 
 
 
