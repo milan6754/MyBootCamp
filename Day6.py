@@ -130,5 +130,3 @@ for key,value in whats.items(): # to get key use keys() , to get value use value
 
 
 
-
-
