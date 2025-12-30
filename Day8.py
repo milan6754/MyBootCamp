@@ -65,6 +65,7 @@ if __name__ =="__main__":
 
 
 #============Python slot machine==============
+
 import random
 def spin_row():
     symbols = [ '🍒' ,'🍉' , '🍋', '🔔', '⭐️']
