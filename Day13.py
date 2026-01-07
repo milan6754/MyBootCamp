@@ -83,7 +83,7 @@ task3.join()
 print("You complete all tasks")'''
 
 #================how to connect to api=====================
-import requests
+'''import requests
 
 base_url = "https://pokeapi.co/api/v2/"
 
@@ -133,4 +133,4 @@ t2.start()
 t1.join()
 t2.join()
 
-print("All finished")
+print("All finished")'''
