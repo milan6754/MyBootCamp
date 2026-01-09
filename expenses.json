@@ -1,0 +1,14 @@
+[
+    {
+        "amount": 1000.0,
+        "category": "shopping",
+        "note": "suit",
+        "date": "2026-01-09"
+    },
+    {
+        "amount": 3.0,
+        "category": "food",
+        "note": "water",
+        "date": "2026-01-09"
+    }
+]
