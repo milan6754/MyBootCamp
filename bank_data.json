@@ -1,0 +1,26 @@
+{
+    "owner": "Barsha",
+    "balance": 501000.0,
+    "transactions": [
+        {
+            "amount": 1000000.0,
+            "type": "Deposit",
+            "time": "26-01-10 15:12:17"
+        },
+        {
+            "amount": 500000.0,
+            "type": "Withdraw",
+            "time": "26-01-10 15:12:44"
+        },
+        {
+            "amount": 1000.0,
+            "type": "Deposit",
+            "time": "26-01-10 15:16:52"
+        },
+        {
+            "amount": 5000.0,
+            "type": "Withdraw",
+            "time": "26-01-10 15:17:06"
+        }
+    ]
+}
