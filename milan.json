@@ -1,0 +1,16 @@
+{
+    "owner": "Milan",
+    "balance": 1500000.0,
+    "transactions": [
+        {
+            "amount": 1000000.0,
+            "type": "Deposit",
+            "time": "26-01-12 13:34:29"
+        },
+        {
+            "amount": 500000.0,
+            "type": "Withdraw",
+            "time": "26-01-12 13:39:19"
+        }
+    ]
+}

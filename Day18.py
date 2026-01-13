@@ -1,13 +1,14 @@
 from datetime import datetime
 import json
 
-class InsufficentFundsError(Exception):
+# ---------------- Custom Exceptions ----------------
+class InsufficentAmountError(Exception):
     pass
 
-class InvalidAmountError(Exception):
+class InvaliAmountError(Exception):
     pass
 
-
+# ---------------- Transaction Class ----------------
 class Transaction:
     def __init__(self, amount, type_):
         self.amount = amount
@@ -15,7 +16,7 @@ class Transaction:
         self.time = datetime.now().strftime("%y-%m-%d %H:%M:%S")
 
     def __str__(self):
-        return f"{self.time} | {self.type.upper()} | ₹{self.amount}"
+        return f"{self.time} | ₹{self.amount} | {self.type}"
 
     def to_dict(self):
         return {
@@ -30,79 +31,88 @@ class Transaction:
         t.time = data["time"]
         return t
 
-
+# ---------------- BankAccount Class ----------------
 class BankAccount:
-    def __init__(self, owner, balance=0):
+    def __init__(self, owner, initialAmount=0):
         self.owner = owner
-        self.__balance = balance
+        self.file_name = f"{owner.lower()}.json"  # each account has its own file
+        self.__balance = initialAmount
         self.transactions = []
         self.load_from_file()
 
-    def deposit(self, amount):
-        if amount <= 0:
-            raise InvalidAmountError("Amount must be positive")
-
-        self.__balance += amount
-        self.transactions.append(Transaction(amount, "Deposit"))
-        print(f"Deposit ₹{amount} successful")
-        self.save_to_file()
-
-    def withdraw(self, amount):
-        if amount <= 0:
-            raise InvalidAmountError("Amount must be positive")
-
-        if amount > self.__balance:
-            raise InsufficentFundsError("Not enough balance")
-
-        self.__balance -= amount
-        self.transactions.append(Transaction(amount, "Withdraw"))
-        print("Withdraw successful")
-        self.save_to_file()
-
+    # Save account data to JSON
     def save_to_file(self):
         data = {
             "owner": self.owner,
             "balance": self.__balance,
             "transactions": [t.to_dict() for t in self.transactions]
         }
-
-        with open("bank_data.json", "w") as file:
+        with open(self.file_name, "w") as file:
             json.dump(data, file, indent=4)
 
+    # Load account data from JSON
     def load_from_file(self):
         try:
-            with open("bank_data.json", "r") as file:
+            with open(self.file_name, "r") as file:
                 data = json.load(file)
-
-                if data["owner"] != self.owner:
-                    return  # prevent loading wrong account
-
                 self.__balance = data["balance"]
-                self.transactions = [
-                    Transaction.from_dict(t)
-                    for t in data["transactions"]
-                ]
-
+                self.transactions = [Transaction.from_dict(t) for t in data["transactions"]]
         except FileNotFoundError:
-            pass
+            pass  # file doesn't exist, start fresh
 
+    # Deposit money
+    def deposit(self, amount):
+        if amount <= 0:
+            raise InvaliAmountError("Amount must be positive")
+        self.__balance += amount
+        self.transactions.append(Transaction(amount, "Deposit"))
+        print("Deposit successful!")
+        self.save_to_file()
+
+    # Withdraw money
+    def withdraw(self, amount):
+        if amount <= 0:
+            raise InvaliAmountError("Amount must be positive")
+        if amount > self.__balance:
+            raise InsufficentAmountError("Not enough balance")
+        self.__balance -= amount
+        self.transactions.append(Transaction(amount, "Withdraw"))
+        print("Withdraw successful!")
+        self.save_to_file()
+
+    # Show current balance
     def show_balance(self):
         print(f"Current balance: ₹{self.__balance}")
 
+    # Show transaction history
     def show_transactions(self):
         if not self.transactions:
-            print("No transactions yet")
+            print("No transactions yet.")
             return
-
         for t in self.transactions:
             print(t)
 
+# ---------------- Main Program ----------------
+# Create multiple accounts (predefined)
+accounts = {
+    "Barsha": BankAccount("Barsha", 5000),
+    "Milan": BankAccount("Milan", 1000000)
+}
 
-account = BankAccount("Barsha",5000)
+# Choose account once
+print("Available accounts:", ", ".join(accounts.keys()))
+current_account_name = input("Choose account to operate: ")
+
+if current_account_name not in accounts:
+    print("Account not found! Exiting...")
+    exit()
+
+account = accounts[current_account_name]
+print(f"Using account: {current_account_name}")
 
 while True:
-    print("\n🏦 BANK MENU")
-    print("1. Deposit")
+
+    print("\n1. Deposit")
     print("2. Withdraw")
     print("3. Show Balance")
     print("4. Show Transactions")
@@ -115,26 +125,26 @@ while True:
         continue
 
     try:
-        if choice ==1:
+        if choice == 1:
             amount = float(input("Enter the amount: "))
             account.deposit(amount)
         
-        elif choice ==2:
+        elif choice == 2:
             amount = float(input("Enter the amount: "))
             account.withdraw(amount)
         
-        elif choice ==3:
+        elif choice == 3:
             account.show_balance()
         
-        elif choice ==4:
+        elif choice == 4:
             account.show_transactions()
         
-        elif choice==5:
+        elif choice == 5:
             print("GoodBye..!")
             break
 
         else:
             print("Invalid choice")
     
-    except (InsufficentFundsError,InvalidAmountError) as e:
+    except (InsufficentAmountError, InvaliAmountError) as e:
         print("Error:", e)

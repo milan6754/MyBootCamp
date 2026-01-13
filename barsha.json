@@ -1,0 +1,16 @@
+{
+    "owner": "Barsha",
+    "balance": 5200.0,
+    "transactions": [
+        {
+            "amount": 100.0,
+            "type": "Deposit",
+            "time": "26-01-12 13:29:55"
+        },
+        {
+            "amount": 100.0,
+            "type": "Deposit",
+            "time": "26-01-12 13:42:47"
+        }
+    ]
+}
