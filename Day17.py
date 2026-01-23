@@ -2,7 +2,7 @@
 import json 
 from datetime import date 
 
-class ExpensesTracker:
+class ExpenseTracker:
     def __init__(self, file_name="expenses.json"):
         self.file_name= file_name
         self.expenses = self.load_expenses()
@@ -18,7 +18,7 @@ class ExpensesTracker:
         with open(self.file_name,"w") as file:
             json.dump(self.expenses,file,indent=4)
             
-    def add_task(self,amount,category,note=""):
+    def add_expenses(self,amount,category,note=""):
         expenses={
             'amount':amount,
             'category':category,
@@ -38,7 +38,7 @@ class ExpensesTracker:
     
     def total_spending(self):
         total = sum(exp['amount'] for exp in self.expenses)
-        print(f"Total spend:{total}")
+        print(f"Total spend: ${total}")
     
 
     def filter_by_category(self,category):
@@ -46,7 +46,7 @@ class ExpensesTracker:
 
         for exp in self.expenses:
             if exp['category'].lower()==category.lower():
-                print(f"${enumerate({exp['amount']} | {exp['date']} | {exp['note']})}")
+                print(f"${exp['amount']} | {exp['date']} | {exp['note']}")
             
                 found = True
         if not found:
@@ -57,7 +57,7 @@ class ExpensesTracker:
             if 1<=index <=len(self.expenses):
                 del self.expenses[index-1]
                 self.save_expenses()
-                print(f"{self.expenses[index]} is deleted.")
+                print(f"Expenses Deleted")
             else:
                 print("Invalid index")
        
@@ -74,7 +74,7 @@ def menu():
     print("5. Delete Expenses")
     print("6. Exit")
     
-tracker = ExpensesTracker()
+tracker = ExpenseTracker()
 
 while True:
     menu()
@@ -90,7 +90,7 @@ while True:
             amount = float(input("Amount: "))
             category = input("Category: ")
             note = input("Note (optional): ")
-            tracker.add_task(amount,category,note)
+            tracker.add_expenses(amount,category,note)
         except ValueError:
             print("Amount must be number")
 
