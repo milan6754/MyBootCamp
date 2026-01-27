@@ -1,15 +1,16 @@
 def merge_sort(arr):
     if len(arr)<=1:
         return arr
-
+    
     mid = len(arr)//2
+
     left = merge_sort(arr[:mid])
     right = merge_sort(arr[mid:])
 
-    return merge(left,right)
+    return sorting(left,right)
 
-def merge(left,right):
-    result =[]
+def sorting(left,right):
+    result = []
     i=j=0
 
     while i<len(left) and j<len(right):
@@ -19,9 +20,12 @@ def merge(left,right):
         else:
             result.append(right[j])
             j+=1
+    
     result.extend(left[i:])
     result.extend(right[j:])
     return result
-arr=[9,8,7,6,5,4,3,2,1]
-sorted_array= merge_sort(arr)
-print(sorted_array)
+
+arr = [3,1,4,6,2,9]
+soritng = merge_sort(arr)
+
+print(soritng)
