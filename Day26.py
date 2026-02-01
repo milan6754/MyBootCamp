@@ -3,6 +3,7 @@
 # pivot element ,swap the lesser than pivot in left side and swap the greater than pivot 
 # in right side. 
 
+
 def quick_sort(arr):
     if len(arr)<=1:
         return arr
